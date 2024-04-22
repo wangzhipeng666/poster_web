@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { PropType, defineProps } from "vue";
-import { TemplateProps } from "../store/index";
+import { TemplateProps } from "../store/templates";
 
 defineProps({
   list: {

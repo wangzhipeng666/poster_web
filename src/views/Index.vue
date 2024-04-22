@@ -2,7 +2,10 @@
   <div class="homepage-container">
     <a-layout :style="{ background: '#fff' }">
       <a-layout-header class="header">
-        <div class="page-title">慕课乐高</div>
+        <div class="page-title">
+          <router-link to="/">慕课乐高</router-link>
+        </div>
+        <user-profile :user="user"></user-profile>
       </a-layout-header>
       <a-layout-content class="home-layout">
         <div class="content-container">
@@ -16,9 +19,22 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed } from "vue";
+import { useStore } from "vuex";
+import { GlobalDataProps } from "../store/index";
+import UserProfile from "../components/UserProfile.vue";
+
+const store = useStore<GlobalDataProps>();
+const user = computed(() => store.state.user);
+</script>
 
 <style lang="scss" scoped>
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .page-title {
   color: #fff;
 }
