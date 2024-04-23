@@ -4,25 +4,33 @@
   </component>
 </template>
 
-<script setup lang="ts">
-import { defineProps, computed } from "vue";
+<script lang="ts">
+import { defineComponent, computed } from "vue";
 import { pick } from "lodash-es";
+import {
+  transformToComponentProps,
+  textDefaultProps,
+  textStylePropNames,
+} from "../defaultProps";
+const defaultProps = transformToComponentProps(textDefaultProps);
 
-const props = defineProps({
-  text: {
-    type: String,
+export default defineComponent({
+  name: "l-text",
+  props: {
+    tag: {
+      type: String,
+      default: "div",
+    },
+    ...defaultProps,
   },
-  fontSize: {
-    type: String,
-  },
-  tag: {
-    type: String,
-    default: "div",
+  setup(props) {
+    // 抽离并且获得 styleProps
+    const styleProps = computed(() => pick(props, textStylePropNames));
+    return {
+      styleProps,
+    };
   },
 });
-
-// 抽离并且获得 styleProps
-const styleProps = computed(() => pick(props, ["fontSize"]));
 </script>
 
 <style lang="scss" scoped>
