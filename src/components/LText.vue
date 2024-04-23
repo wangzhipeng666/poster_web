@@ -1,12 +1,18 @@
 <template>
-  <component :is="tag" :style="styleProps" class="l-text-component">
+  <component
+    :is="tag"
+    :style="styleProps"
+    class="l-text-component"
+    @click="handleClick"
+  >
     {{ text }}
   </component>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
-import { pick } from "lodash-es";
+import useComponentCommon from "../hooks/useComponentCommon";
+
 import {
   transformToComponentProps,
   textDefaultProps,
@@ -25,9 +31,13 @@ export default defineComponent({
   },
   setup(props) {
     // 抽离并且获得 styleProps
-    const styleProps = computed(() => pick(props, textStylePropNames));
+    const { styleProps, handleClick } = useComponentCommon(
+      props,
+      textStylePropNames
+    );
     return {
       styleProps,
+      handleClick,
     };
   },
 });
