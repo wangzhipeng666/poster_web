@@ -10,7 +10,7 @@ export interface EditorProps {
   currentElement: string;
 }
 
-interface ComponentData {
+export interface ComponentData {
   props: { [key: string]: any };
   // id，uuid v4 生成
   id: string;
@@ -54,6 +54,16 @@ const editor: Module<EditorProps, GlobalDataProps> = {
         props,
       };
       state.components.push(newComponent);
+    },
+    setActive(state, currentId: string) {
+      state.currentElement = currentId;
+    },
+  },
+  getters: {
+    getCurrentElement: (state) => {
+      return state.components.find(
+        (component) => component.id === state.currentElement
+      );
     },
   },
 };

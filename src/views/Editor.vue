@@ -14,22 +14,34 @@
         <a-layout-content class="preview-container">
           <p>画布区域</p>
           <div class="preview-list" id="canvas-area">
-            <component
+            <edit-wrapper
               v-for="component in components"
               :key="component.id"
-              :is="componentMap[component.name]"
-              v-bind="component.props"
-            />
-            <!-- <l-text text="123" fontSize="20px"></l-text> -->
+              :id="component.id"
+              @setActive="setActive"
+              :active="component.id === (currentElement && currentElement.id)"
+            >
+              <component
+                :is="componentMap[component.name]"
+                v-bind="component.props"
+              />
+            </edit-wrapper>
           </div>
         </a-layout-content>
       </a-layout>
       <a-layout-sider
         width="300"
-        style="background: purple"
+        style="background: #fff"
         class="settings-panel"
       >
         组件属性
+        <props-table
+          v-if="currentElement && currentElement.props"
+          :props="currentElement.props"
+        ></props-table>
+        <pre>
+          {{ currentElement && currentElement.props }}
+        </pre>
       </a-layout-sider>
     </a-layout>
   </div>
@@ -40,7 +52,10 @@ import { computed } from "vue";
 import { useStore } from "vuex";
 import { GlobalDataProps } from "../store/index";
 import ComponentsList from "../components/ComponentsList.vue";
+import EditWrapper from "../components/EditWrapper.vue";
+import { ComponentData } from "../store/editor";
 import { defaultTextTemplates } from "../defaultTemplates";
+import PropsTable from "../components/PropsTable.vue";
 // 引入组件
 import LText from "../components/LText.vue";
 
@@ -54,9 +69,15 @@ const componentMap: ComponentMap = {
 
 const store = useStore<GlobalDataProps>();
 const components = computed(() => store.state.editor.components);
+const currentElement = computed<ComponentData | null>(
+  () => store.getters.getCurrentElement
+);
 
 const addItem = (props: any) => {
   store.commit("addComponent", props);
+};
+const setActive = (id: string) => {
+  store.commit("setActive", id);
 };
 </script>
 
