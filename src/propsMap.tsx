@@ -16,17 +16,19 @@ export type PropsToForms = {
   [P in keyof TextComponentProps]?: PropToForm;
 };
 const fontFamilyArr = [
-  { text: '宋体', value: '"SimSun","STSong"' },
-  { text: '黑体', value: '"SimHei","STHeiti"' },
-  { text: '楷体', value: '"KaiTi","STKaiti"' },
-  { text: '仿宋', value: '"FangSong","STFangsong"' },
-]
-const fontFamilyOptions = fontFamilyArr.map(font => {
+  { text: "宋体", value: '"SimSun","STSong"' },
+  { text: "黑体", value: '"SimHei","STHeiti"' },
+  { text: "楷体", value: '"KaiTi","STKaiti"' },
+  { text: "仿宋", value: '"FangSong","STFangsong"' },
+];
+const fontFamilyOptions = fontFamilyArr.map((font) => {
   return {
     value: font.value,
-    text: <span style={{ fontFamily: font.value}}>{font.text}</span> as VNode
-  }
-})
+    text: (
+      <span style={{ fontFamily: font.value }}>{font.text}</span>
+    ) as VNode,
+  };
+});
 export const mapPropsToForms: PropsToForms = {
   text: {
     text: "文本",
@@ -62,6 +64,6 @@ export const mapPropsToForms: PropsToForms = {
     component: "a-select",
     subComponent: "a-select-option",
     text: "字体",
-    options: [{ value: "", text: "无" }, ...fontFamilyOptions],
+    options: [{ value: "", text: " 无 " }, ...fontFamilyOptions],
   },
 };

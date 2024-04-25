@@ -56,7 +56,7 @@ import ComponentsList from "../components/ComponentsList.vue";
 import EditWrapper from "../components/EditWrapper.vue";
 import { ComponentData } from "../store/editor";
 import { defaultTextTemplates } from "../defaultTemplates";
-import PropsTable from "../components/PropsTable";
+import PropsTable from "../components/PropsTable.vue";
 // 引入组件
 import LText from "../components/LText.vue";
 
